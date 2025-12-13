@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import Image from "next/image";
+import { ThemeSwitcher } from "@/components/theme-switcher";
+import { HeaderSection } from "@/components/index/header-section"
+import { FooterSection } from "@/components/index/footer-section"
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -9,7 +13,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
+  title: "半栈人生",
   description: "The fastest way to build apps with Next.js and Supabase",
 };
 
@@ -25,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="zh" suppressHydrationWarning>
       <body className={`${geistSans.className} antialiased`}>
         <ThemeProvider
           attribute="class"
@@ -33,7 +37,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+
+          <HeaderSection />
+
           {children}
+          <FooterSection />
         </ThemeProvider>
       </body>
     </html>

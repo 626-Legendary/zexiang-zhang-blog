@@ -1,3 +1,4 @@
+import { Zhi_Mang_Xing } from "next/font/google";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -56,6 +57,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      
+      fontFamily: {
+        Zhi_Mang_Xing: ['"Zhi Mang Xing"', 'cursive'],
       },
     },
   },
