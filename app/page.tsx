@@ -9,13 +9,16 @@ import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import {WeatherWidget} from "@/components/widgets/weather-widget"
+import { WeatherWidget } from "@/components/widgets/weather-widget"
 
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center">
       123
-      <WeatherWidget/>
+      <div className="w-1/5">
+        <WeatherWidget />
+      </div>
+
     </main>
   );
 }
