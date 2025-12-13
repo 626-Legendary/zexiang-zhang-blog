@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { Card } from "@/components/ui/card";
 
 type WeatherData = {
   temp: number;
@@ -12,10 +13,6 @@ type WeatherData = {
   country: string;
   name: string; // city
 };
-
-function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export function WeatherWidget() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -85,7 +82,7 @@ export function WeatherWidget() {
 
   if (loading) {
     return (
-      <div className="w-full rounded-2xl border border-border bg-background/60 p-5 shadow-sm">
+      <Card className="w-full rounded-2xl p-5 shadow-sm border border-border bg-background/60">
         <div className="flex items-center justify-between gap-5">
           <div className="flex items-center gap-3">
             <div className="h-14 w-14 rounded-2xl bg-muted animate-pulse" />
@@ -100,29 +97,27 @@ export function WeatherWidget() {
             <div className="h-4 w-32 rounded bg-muted animate-pulse ml-auto" />
           </div>
         </div>
-      </div>
+      </Card>
     );
   }
 
   if (error || !weather) {
     return (
-      <div className="w-full rounded-2xl border border-border bg-background/60 p-5 shadow-sm">
+      <Card className="w-full rounded-2xl p-5 shadow-sm border border-border bg-background/60">
         <div className="text-sm text-muted-foreground">Weather</div>
         <div className="mt-2 text-sm text-red-500">{error ?? "天气不可用"}</div>
-      </div>
+      </Card>
     );
   }
 
   return (
-    <div className="w-full rounded-2xl border border-border bg-background/60 p-5 shadow-sm backdrop-blur">
-      {/* 左右布局：左边天气图标+描述；右边详细信息 */}
+    <Card className="w-full rounded-2xl p-5 shadow-sm border border-border hover:shadow-lg transition-shadow duration-300">
       <div className="flex items-center justify-between gap-6">
-        {/* Left div */}
+        {/* 左侧：天气图标 + 描述 */}
         <div className="flex min-w-0 items-center gap-3">
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-muted/60">
             <Image src={weather.icon} alt={weather.description} width={56} height={56} priority />
           </div>
-
           <div className="min-w-0">
             <div className="text-sm text-muted-foreground">Weather</div>
             <div className="truncate text-base font-medium text-foreground">
@@ -131,19 +126,17 @@ export function WeatherWidget() {
           </div>
         </div>
 
-        {/* Right div */}
+        {/* 右侧：温度 + 城市 + 范围 */}
         <div className="text-right">
           <div className="text-5xl font-semibold tracking-tight text-foreground">
             {Math.round(weather.temp)}°
           </div>
-
           <div className="mt-1 text-sm font-medium text-foreground">{cityLine}</div>
-
           <div className="mt-1 text-sm text-muted-foreground leading-5">
             最低 {Math.round(weather.tempMin)}° / 最高 {Math.round(weather.tempMax)}°
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

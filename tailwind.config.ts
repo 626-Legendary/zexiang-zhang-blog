@@ -59,9 +59,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       
-      fontFamily: {
-        Zhi_Mang_Xing: ['"Zhi Mang Xing"', 'cursive'],
-      },
+      
     },
   },
   plugins: [require("tailwindcss-animate")],

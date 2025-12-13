@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Zhi Mang Xing";
-  src: url("/fonts/ZhiMangXing-Regular.ttf") format("ttf");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 @layer base {
   :root {

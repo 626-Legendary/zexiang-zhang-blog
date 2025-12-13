@@ -1,5 +1,5 @@
 "use client";
-
+import { ZMX } from "@/app/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeSwitcher } from "@/components/theme-switcher";
@@ -41,7 +41,7 @@ export function HeaderSection() {
             height={32}
             className="hidden dark:block"
           />
-          <span className="font-Zhi_Mang_Xing text-xl font-bold">
+          <span className={`${ZMX.className} text-xl font-bold`}>
             半栈人生
           </span>
         </Link>
