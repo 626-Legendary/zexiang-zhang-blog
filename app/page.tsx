@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 export default function Home() {
   return (
     <main className="min-h-screen w-full max-w-7xl mx-auto flex flex-col gap-16 p-6 md:p-10">
-      
+
       {/* 顶部介绍 & 天气模块 */}
       <section className="w-full flex flex-col lg:flex-row justify-between items-center gap-10">
         {/* 个人信息 */}
@@ -32,7 +32,7 @@ export default function Home() {
           I love building clean and efficient code, exploring new technologies, and sharing knowledge with the community.
         </p>
         <pre className={`${ZMX.className} w-full md:w-2/3 bg-muted/10 dark:bg-muted/20 rounded-xl p-4 text-sm md:text-base overflow-x-auto`}>
-{`// 这是一个代码占位示例
+          {`// 这是一个代码占位示例
 function helloWorld() {
   console.log("Hello, Zexiang!");
 }`}
@@ -71,6 +71,8 @@ function helloWorld() {
             <CardTitle>Extra Section</CardTitle>
             <CardDescription>
               This space can be used for recommendations, announcements, or other homepage content.
+            
+              数据库连接 = 完成相关路由建设 &gt; 学习笔记功能
             </CardDescription>
           </CardHeader>
         </Card>

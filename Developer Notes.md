@@ -19,3 +19,9 @@ footer
 weather
 
 fonts issue
+post-preview cars
+
+2025-12-13
+connect database
+rend md file 
+or editor page
