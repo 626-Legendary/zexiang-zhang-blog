@@ -25,3 +25,5 @@ post-preview cars
 connect database
 rend md file 
 or editor page
+
+⚠ widget优化，加载速度 懒加载之类的。
