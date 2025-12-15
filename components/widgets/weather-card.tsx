@@ -14,7 +14,7 @@ type WeatherData = {
   name: string; // city
 };
 
-export function WeatherWidget() {
+export function WeatherCard() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

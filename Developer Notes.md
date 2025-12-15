@@ -27,3 +27,8 @@ rend md file
 or editor page
 
 ⚠ widget优化，加载速度 懒加载之类的。
+
+2025-12-14
+read md file 
+fix bugs
+footer

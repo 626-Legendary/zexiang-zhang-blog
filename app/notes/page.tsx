@@ -1,45 +1,67 @@
 import Link from "next/link";
+import { buildNotesTree, TreeNode } from "@/lib/notes-tree";
 
-type Note = {
-  id: string;
-  title: string;
-  summary: string;
-  date: string;
-};
+function Folder({ node, level = 0 }: { node: Extract<TreeNode, { type: "folder" }>; level?: number }) {
+  return (
+    <details open className="group">
+      <summary
+        className="cursor-pointer select-none rounded-md px-2 py-1 hover:bg-muted"
+        style={{ paddingLeft: 8 + level * 14 }}
+      >
+        <span className="font-medium">{node.name}</span>
+      </summary>
 
-const notes: Note[] = [
-  {
-    id: "note-1",
-    title: "React 虚拟 DOM 原理解析",
-    summary: "深入解析 React 虚拟 DOM 的工作原理及性能优化技巧。",
-    date: "2025-12-12",
-  },
-  {
-    id: "note-2",
-    title: "Next.js 13 App Router 实践",
-    summary: "使用 Next.js 13 App Router 构建现代化博客应用的实践经验。",
-    date: "2025-12-10",
-  },
-  // 可以替换为真实数据或 fetch API
-];
+      <div className="mt-1 space-y-1">
+        {node.children.map((child) =>
+          child.type === "folder" ? (
+            <Folder key={`f:${child.pathParts.join("/")}`} node={child} level={level + 1} />
+          ) : (
+            <File key={`p:${child.pathParts.join("/")}`} node={child} level={level + 1} />
+          ),
+        )}
+      </div>
+    </details>
+  );
+}
+
+function File({ node, level = 0 }: { node: Extract<TreeNode, { type: "file" }>; level?: number }) {
+  const href = `/notes/${node.pathParts.join("/")}`;
+  return (
+    <div
+      className="rounded-md px-2 py-1 hover:bg-muted"
+      style={{ paddingLeft: 8 + level * 14 }}
+    >
+      <Link className="block" href={href}>
+        <div className="text-sm font-medium leading-5">{node.title}</div>
+        {node.date ? (
+          <div className="text-xs text-muted-foreground">{node.date}</div>
+        ) : null}
+      </Link>
+    </div>
+  );
+}
 
 export default function NotesPage() {
-  return (
-    <main className="min-h-screen w-full max-w-6xl mx-auto px-4 py-12 flex flex-col gap-8">
-      <h1 className="text-3xl font-bold text-center">笔记</h1>
+  const tree = buildNotesTree();
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {notes.map((note) => (
-          <Link
-            key={note.id}
-            href={`/notes/${note.id}`}
-            className="p-6 bg-white/10 backdrop-blur-lg rounded-2xl shadow hover:shadow-lg transition-shadow flex flex-col gap-2"
-          >
-            <h2 className="text-xl font-semibold">{note.title}</h2>
-            <p className="text-gray-300 text-sm">{note.summary}</p>
-            <span className="text-gray-400 text-xs mt-auto">{note.date}</span>
-          </Link>
-        ))}
+  return (
+    <main className="mx-auto max-w-3xl px-4 py-10">
+      <h1 className="text-3xl font-semibold tracking-tight">Notes</h1>
+
+      <div className="mt-8 rounded-lg border p-3">
+        {tree.length ? (
+          <div className="space-y-1">
+            {tree.map((node) =>
+              node.type === "folder" ? (
+                <Folder key={`root:${node.pathParts.join("/")}`} node={node} />
+              ) : (
+                <File key={`rootfile:${node.pathParts.join("/")}`} node={node} />
+              ),
+            )}
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground">No notes found.</p>
+        )}
       </div>
     </main>
   );

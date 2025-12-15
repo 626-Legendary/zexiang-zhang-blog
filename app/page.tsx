@@ -1,11 +1,13 @@
+// root app/page.tsx
 import { PostPreviewCard } from "@/components/blog/post-preview-card";
 import { LXGW, ZMX } from "@/app/fonts";
-import { WeatherWidget } from "@/components/widgets/weather-widget";
+import { WeatherCard } from "@/components/widgets/weather-card";
+import {StatusCard}from"@/components/widgets/stats-card";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full max-w-7xl mx-auto flex  gap-16 p-6 md:p-10">
+    <main className="min-h-screen w-full max-w-7xl mx-auto flex  gap-16 p-6 md:p-10 ">
       <div className="left w-1/4">{/* 顶部介绍 & 天气模块 */}
         <section className="w-full  lg:flex-row justify-between items-center gap-10">
           {/* 个人信息 */}
@@ -19,7 +21,10 @@ export default function Home() {
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa dicta dolor eum ipsam maiores eligendi, laboriosam dolores omnis perspiciatis odit magni incidunt ab nam ad, ea nostrum voluptatibus vero necessitatibus modi fugit provident suscipit fugiat quis! Veritatis, ab corporis incidunt sequi nihil odit error, rem laborum sapiente enim, commodi voluptatem.</p>
           </div>
           <div className="w-full max-w-sm">
-            <WeatherWidget />
+            <WeatherCard />
+          </div>
+          <div>
+            <StatusCard/>
           </div>
 
           {/* 天气 widget */}
