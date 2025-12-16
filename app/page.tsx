@@ -4,13 +4,22 @@ import { LXGW, ZMX } from "@/app/fonts";
 import { WeatherCard } from "@/components/widgets/weather-card";
 import {StatusCard}from"@/components/widgets/stats-card";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-
+import { ProfileCard } from "@/components/widgets/profile-card";
+import { AnnouncementCard } from "@/components/widgets/announcement-card";
+import { TagCard } from "@/components/widgets/tag-card";
 export default function Home() {
   return (
-    <main className="min-h-screen w-full max-w-7xl mx-auto flex  gap-16 p-6 md:p-10 ">
-      <div className="left w-1/4">{/* 顶部介绍 & 天气模块 */}
+    <main className="min-h-screen w-full max-w-7xl mx-auto flex  gap-8 md:p-10 ">
+      {/* 左半部分 */}
+      <div className="left w-1/4 min-w-7xl hidden lg:block">
         <section className="w-full  lg:flex-row justify-between items-center gap-10">
           {/* 个人信息 */}
+          <div className="w-full mb-4">
+            <WeatherCard />
+          </div>
+          <ProfileCard/>
+          <AnnouncementCard/>
+          <TagCard/>
           <div className="flex flex-col items-center lg:items-start gap-4 text-center lg:text-left">
             <div className="w-36 h-36 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
             <p className="text-3xl font-bold">Hello, I'm Zexiang</p>
@@ -20,11 +29,10 @@ export default function Home() {
 
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa dicta dolor eum ipsam maiores eligendi, laboriosam dolores omnis perspiciatis odit magni incidunt ab nam ad, ea nostrum voluptatibus vero necessitatibus modi fugit provident suscipit fugiat quis! Veritatis, ab corporis incidunt sequi nihil odit error, rem laborum sapiente enim, commodi voluptatem.</p>
           </div>
-          <div className="w-full max-w-sm">
-            <WeatherCard />
-          </div>
+          
           <div>
             <StatusCard/>
+            
           </div>
 
           {/* 天气 widget */}

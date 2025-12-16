@@ -1,10 +1,12 @@
 "use client";
+
 import { ZMX } from "@/app/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { FaGithub, FaSearch, FaBars } from "react-icons/fa";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 type NavItem = {
   name: string;
@@ -21,12 +23,18 @@ const navItems: NavItem[] = [
 
 export function HeaderSection() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+      <div className="mx-auto flex h-16 max-w-7xl items-center px-4">
         {/* Left: Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="w-1/3 flex items-center gap-2">
           <Image
             src="/LogoLight.png"
             alt="Logo"
@@ -46,14 +54,20 @@ export function HeaderSection() {
           </span>
         </Link>
 
-        {/* Center: Nav (desktop only) */}
-        <nav className="hidden md:flex">
+        {/* Center: Nav (desktop) */}
+        <nav className="hidden md:flex w-1/3 justify-center">
           <ul className="flex items-center gap-8 text-sm font-medium">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="hover:underline underline-offset-4 transition"
+                  className={`
+                    transition underline-offset-4
+                    ${isActive(item.href)
+                      ? "text-foreground underline"
+                      : "text-muted-foreground hover:text-foreground hover:underline"
+                    }
+                  `}
                 >
                   {item.name}
                 </Link>
@@ -63,8 +77,7 @@ export function HeaderSection() {
         </nav>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-4">
-          {/* Search (desktop only) */}
+        <div className="flex w-1/3 justify-end items-center gap-4">
           <div className="relative hidden md:block">
             <FaSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -79,14 +92,13 @@ export function HeaderSection() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="text-xl hover:opacity-70 transition"
+            className="text-xl transition hover:opacity-70"
           >
             <FaGithub />
           </a>
 
           <ThemeSwitcher />
 
-          {/* Mobile menu button */}
           <button
             className="md:hidden text-xl"
             onClick={() => setOpen(!open)}
@@ -100,13 +112,19 @@ export function HeaderSection() {
       {/* Mobile Nav */}
       {open && (
         <div className="md:hidden border-t bg-background">
-          <ul className="flex flex-col px-4 py-4 gap-4">
+          <ul className="flex flex-col gap-4 px-4 py-4">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block text-sm hover:underline underline-offset-4"
+                  className={`
+                    block text-sm transition
+                    ${isActive(item.href)
+                      ? "font-medium text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                    }
+                  `}
                 >
                   {item.name}
                 </Link>

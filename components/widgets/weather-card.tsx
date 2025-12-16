@@ -131,11 +131,13 @@ export function WeatherCard() {
           <div className="text-5xl font-semibold tracking-tight text-foreground">
             {Math.round(weather.temp)}°
           </div>
-          <div className="mt-1 text-sm font-medium text-foreground">{cityLine}</div>
-          <div className="mt-1 text-sm text-muted-foreground leading-5">
-            最低 {Math.round(weather.tempMin)}° / 最高 {Math.round(weather.tempMax)}°
-          </div>
+
         </div>
+      </div>
+      
+      <div className="mt-1 text-sm font-medium text-foreground flex justify-end">{cityLine}</div>
+      <div className="mt-1 text-sm text-muted-foreground flex justify-end leading-5">
+        最低 {Math.round(weather.tempMin)}° / 最高 {Math.round(weather.tempMax)}°
       </div>
     </Card>
   );

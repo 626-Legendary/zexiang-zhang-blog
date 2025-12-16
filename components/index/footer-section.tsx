@@ -54,7 +54,7 @@ export function FooterSection() {
           <span>© <Suspense fallback={<div>Loading...</div>}><FooterYear /></Suspense> 半栈人生</span>
 
           <span className="inline-flex items-center gap-1">
-            <CiLogin /> 登录入口
+            <CiLogin /> &nbsp;后台登陆
           </span>
 
           <div className="flex items-center gap-2">
