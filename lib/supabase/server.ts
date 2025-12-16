@@ -1,12 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-/**
- * Especially important if using Fluid compute: Don't put this client in a
- * global variable. Always create a new client within each function when using
- * it.
- */
 export async function createClient() {
+  // ✅ 你的 Next 版本里 cookies() 是 Promise，所以必须 await
   const cookieStore = await cookies();
 
   return createServerClient(
@@ -15,20 +11,26 @@ export async function createClient() {
     {
       cookies: {
         getAll() {
+          // ✅ await 后 cookieStore 就有 getAll()
           return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options),
-            );
+            // ✅ Server Component 里 cookieStore 类型是 ReadonlyRequestCookies
+            //    类型上没有 set，但某些运行时场景可能允许/需要
+            //    所以这里用类型断言绕过 TS
+            const store = cookieStore as unknown as {
+              set: (name: string, value: string, options?: any) => void;
+            };
+
+            cookiesToSet.forEach(({ name, value, options }) => {
+              store.set(name, value, options);
+            });
           } catch {
-            // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have proxy refreshing
-            // user sessions.
+            // 在 Server Component 场景下 set 可能不允许，忽略即可
           }
         },
       },
-    },
+    }
   );
 }

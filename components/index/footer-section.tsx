@@ -1,7 +1,8 @@
 import { CiLogin } from "react-icons/ci";
 import { AuthButton } from "../auth-button"; // 让它走 server 版本
 import { UptimeDays } from "./uptime-days";
-import { FooterYear } from "./footer-year";
+import { FooterYear } from "./current-year";
+import { Suspense } from "react";
 export function FooterSection() {
   
 
@@ -50,7 +51,7 @@ export function FooterSection() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <span>© <FooterYear /> 半栈人生</span>
+          <span>© <Suspense fallback={<div>Loading...</div>}><FooterYear /></Suspense> 半栈人生</span>
 
           <span className="inline-flex items-center gap-1">
             <CiLogin /> 登录入口
@@ -58,7 +59,10 @@ export function FooterSection() {
 
           <div className="flex items-center gap-2">
             <span className="hidden sm:block">Built with</span>
-            <AuthButton />
+            <Suspense fallback={<div className="h-8 w-40 rounded-md bg-muted" />}>
+  <AuthButton />
+</Suspense>
+            
           </div>
         </div>
       </div>
