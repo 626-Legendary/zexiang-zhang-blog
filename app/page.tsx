@@ -2,57 +2,38 @@
 import { PostPreviewCard } from "@/components/blog/post-preview-card";
 import { LXGW, ZMX } from "@/app/fonts";
 import { WeatherCard } from "@/components/widgets/weather-card";
-import {StatusCard}from"@/components/widgets/stats-card";
+import { StatusCard } from "@/components/widgets/stats-card";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ProfileCard } from "@/components/widgets/profile-card";
 import { AnnouncementCard } from "@/components/widgets/announcement-card";
 import { TagCard } from "@/components/widgets/tag-card";
 export default function Home() {
   return (
-    <main className="min-h-screen w-full max-w-7xl mx-auto flex  gap-8 md:p-10 ">
+    <main className="mx-auto flex justify-center max-w-7xl gap-8 my-8">
       {/* 左半部分 */}
-      <div className="left w-1/4 min-w-7xl hidden lg:block">
-        <section className="w-full  lg:flex-row justify-between items-center gap-10">
-          {/* 个人信息 */}
-          <div className="w-full mb-4">
-            <WeatherCard />
-          </div>
-          <ProfileCard/>
-          <AnnouncementCard/>
-          <TagCard/>
-          <div className="flex flex-col items-center lg:items-start gap-4 text-center lg:text-left">
-            <div className="w-36 h-36 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
-            <p className="text-3xl font-bold">Hello, I'm Zexiang</p>
-            <p className="max-w-md text-muted-foreground">
-              Welcome to my personal blog. Here I share insights on programming, technology, and professional growth.
-            </p>
-
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa dicta dolor eum ipsam maiores eligendi, laboriosam dolores omnis perspiciatis odit magni incidunt ab nam ad, ea nostrum voluptatibus vero necessitatibus modi fugit provident suscipit fugiat quis! Veritatis, ab corporis incidunt sequi nihil odit error, rem laborum sapiente enim, commodi voluptatem.</p>
-          </div>
-          
-          <div>
-            <StatusCard/>
-            
-          </div>
+      <aside className="left hidden lg:flex lg:flex-col gap-4 lg:w-[300px]">
+        
 
           {/* 天气 widget */}
           
-        </section>
+            <WeatherCard />
+          
+          {/* 个人信息 */}
+          <ProfileCard />
+          <AnnouncementCard />
+          <TagCard />
+          <StatusCard />
 
-        {/* 自我介绍 / 代码块 */}
-        <section className="w-full flex flex-col items-center gap-6">
-          <p className={`${LXGW.className} text-lg md:text-xl text-muted-foreground max-w-2xl text-center`}>
-            I love building clean and efficient code, exploring new technologies, and sharing knowledge with the community.
-          </p>
-          <pre className={`${ZMX.className} w-full md:w-2/3 bg-muted/10 dark:bg-muted/20 rounded-xl p-4 text-sm md:text-base overflow-x-auto`}>
-            {`// 这是一个代码占位示例
-function helloWorld() {
-  console.log("Hello, Zexiang!");
-}`}
-          </pre>
-        </section>
-      </div>
-      <div className="right">
+
+
+
+
+        
+
+
+
+      </aside>
+      <div className="right bg-violet-300">
         {/* 最近文章 */}
         <section className="w-full">
           <h2 className="text-2xl md:text-3xl font-semibold mb-6">Recent Posts</h2>

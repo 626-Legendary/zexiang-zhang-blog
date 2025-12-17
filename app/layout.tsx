@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import { TrackPageview } from "@/components/track-pageview";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
@@ -7,7 +7,7 @@ import Image from "next/image";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { HeaderSection } from "@/components/index/header-section"
 import { FooterSection } from "@/components/index/footer-section"
-
+import { Suspense } from "react";
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
@@ -32,6 +32,10 @@ export default function RootLayout({
   return (
     <html lang="zh" suppressHydrationWarning>
       <body className={`${geistSans.className} antialiased`}>
+         <Suspense>
+          <TrackPageview />
+         </Suspense>
+        
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

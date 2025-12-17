@@ -2,7 +2,7 @@ import { FaTags } from "react-icons/fa";
 import { Card } from "../ui/card";
 export function TagCard() {
     return (
-        <Card className="mb-4 w-full h-fit p-2 shadow-xl">
+        <Card className="w-full h-fit p-2">
 
             <div className="flex items-center">
                 <FaTags />

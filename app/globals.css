@@ -4,104 +4,105 @@
 
 /*
 =========================
-Soft Minimal Theme (Comfortable Light/Dark)
+shadcn neutral (soft, clean)
+- HSL tokens for shadcn/ui
+- No “black borders”
 =========================
 */
 
 @layer base {
   :root {
-    /* Backgrounds (更柔和的白，不刺眼) */
-    --background: 210 25% 98%;        /* ~ #f8fafc */
-    --foreground: 222 47% 11%;        /* ~ #0f172a */
+    --radius: 0.5rem;
+
+    /* Page + text */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
     /* Surfaces */
-    --card: 0 0% 100%;                /* #ffffff */
+    --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Brand / Action (主按钮不那么“黑”，更高级耐看) */
-    --primary: 222 35% 18%;           /* ~ #1f2937 */
-    --primary-foreground: 210 40% 98%;/* ~ #f8fafc */
+    /* Neutral system (key for hover harmony) */
+    --muted: 210 40% 96%;            /* slate-100-ish */
+    --muted-foreground: 215 16% 47%; /* slate-500-ish */
 
-    /* Secondary surfaces (分层更明显) */
-    --secondary: 210 20% 96%;         /* ~ #f1f5f9 */
-    --secondary-foreground: 222 35% 18%;
+    /* Accent used for hover/selected backgrounds */
+    --accent: 210 40% 94%;           /* slightly darker than muted */
+    --accent-foreground: 222 47% 11%;
 
-    /* Muted (文本灰更舒服，减少灰糊糊感) */
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 16% 42%;  /* ~ #64748b */
+    /* Primary */
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
 
-    /* Accent (用于 hover/选中态的底色) */
-    --accent: 210 20% 94%;            /* ~ #eaf0f7 */
-    --accent-foreground: 222 35% 18%;
+    /* Secondary */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    /* Borders & inputs */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+
+    /* Focus */
+    --ring: 222 47% 11%;
+    --ring-offset: 0 0% 100%;
 
     /* States */
-    --destructive: 0 75% 55%;         /* ~ #ef4444 */
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-
-    /* Borders & focus (边框更干净，ring更柔) */
-    --border: 214 20% 90%;            /* ~ #e2e8f0 */
-    --input: 214 20% 90%;
-    --ring: 222 35% 18%;
-
-    --radius: 0.5rem;
   }
 
   .dark {
-    /* Backgrounds (别用纯黑，降低眩光) */
-    --background: 222 47% 8%;         /* ~ #0b1220 */
-    --foreground: 210 40% 96%;        /* ~ #e5e7eb */
+    --background: 222 47% 7%;        /* darker than your previous, but not pure black */
+    --foreground: 210 40% 98%;
 
-    /* Surfaces (卡片略亮于背景，层级清晰) */
-    --card: 222 35% 12%;              /* ~ #111827 */
-    --card-foreground: 210 40% 96%;
+    --card: 222 47% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 98%;
 
-    --popover: 222 35% 12%;
-    --popover-foreground: 210 40% 96%;
+    --muted: 217 33% 16%;            /* slate-800-ish */
+    --muted-foreground: 215 20% 70%;
 
-    /* Brand / Action (暗色里主按钮用浅色更自然) */
-    --primary: 210 40% 96%;           /* ~ #e5e7eb */
-    --primary-foreground: 222 47% 10%;/* ~ #0f172a */
+    /* Accent is *brighter* than muted so hover reads clearly */
+    --accent: 217 33% 20%;
+    --accent-foreground: 210 40% 98%;
 
-    /* Secondary surfaces */
-    --secondary: 217 26% 16%;         /* ~ #1f2937 */
-    --secondary-foreground: 210 40% 96%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
 
-    /* Muted */
-    --muted: 217 26% 16%;
-    --muted-foreground: 215 20% 70%;  /* ~ #94a3b8 */
+    --secondary: 217 33% 16%;
+    --secondary-foreground: 210 40% 98%;
 
-    /* Accent */
-    --accent: 217 26% 18%;            /* ~ #243244 */
-    --accent-foreground: 210 40% 96%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
 
-    /* States (暗色下 destructive 不要太暗也不要发紫) */
-    --destructive: 0 62% 45%;         /* ~ #dc2626 */
-    --destructive-foreground: 210 40% 96%;
+    --ring: 210 40% 90%;
+    --ring-offset: 222 47% 7%;
 
-    /* Borders & focus (边框更低对比，ring更清晰) */
-    --border: 217 26% 18%;            /* ~ #243244 */
-    --input: 217 26% 18%;
-    --ring: 210 30% 85%;              /* 柔和高亮 */
-
-    --radius: 0.5rem;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 210 40% 98%;
   }
 
+  /* global */
   body {
-    @apply bg-background text-foreground antialiased;
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+  }
+
+  /* Prevent “random black borders” */
+  * {
+    border-color: hsl(var(--border));
   }
 }
 
-
-/* ===== Markdown polish (minimal, pro, readable) ===== */
+/* =========================
+   Markdown polish (minimal, readable, shadcn-neutral)
+   ========================= */
 .prose {
   --md-radius: 12px;
   --md-code-radius: 10px;
@@ -112,77 +113,60 @@ Soft Minimal Theme (Comfortable Light/Dark)
   --md-foreground: hsl(var(--foreground));
   --md-background: hsl(var(--background));
 
-  /* 新增：阅读层 surface（light / dark 都更稳） */
+  /* stable surfaces */
   --md-surface: color-mix(in hsl, var(--md-background) 92%, var(--md-muted));
+  --md-surface-2: color-mix(in hsl, var(--md-background) 86%, var(--md-muted));
+
+  color: var(--md-foreground);
 }
 
-/* ===== Headings ===== */
+/* Headings */
+.prose :is(h1, h2, h3, h4) {
+  scroll-margin-top: 96px;
+  letter-spacing: -0.015em;
+}
 .prose h1 {
-  letter-spacing: -0.02em;
   margin-top: 0;
   margin-bottom: 0.9em;
+  letter-spacing: -0.03em;
 }
 .prose h2 {
-  margin-top: 2.2em;
+  margin-top: 2.1em;
   margin-bottom: 0.8em;
   padding-bottom: 0.35em;
   border-bottom: 1px solid var(--md-border);
-  letter-spacing: -0.01em;
 }
-.prose h3 {
-  margin-top: 1.8em;
-  margin-bottom: 0.6em;
-  letter-spacing: -0.01em;
-}
-.prose h4 {
-  margin-top: 1.4em;
-  margin-bottom: 0.5em;
-}
+.prose h3 { margin-top: 1.7em; margin-bottom: 0.6em; }
+.prose h4 { margin-top: 1.3em; margin-bottom: 0.5em; }
 
-.prose :is(h1, h2, h3, h4) {
-  scroll-margin-top: 96px;
-}
-
-/* ===== Paragraphs ===== */
+/* Paragraphs */
 .prose p {
-  line-height: 1.8;
+  line-height: 1.85;
   margin: 1em 0;
-  color: color-mix(
-    in hsl,
-    var(--md-foreground) 94%,
-    var(--md-muted-foreground)
-  );
+  color: color-mix(in hsl, var(--md-foreground) 92%, var(--md-muted-foreground));
 }
 
-/* ===== Links ===== */
+/* Links */
 .prose a {
-  text-decoration-thickness: 1px;
   text-underline-offset: 4px;
-  text-decoration-color: color-mix(
-    in hsl,
-    var(--md-foreground) 40%,
-    transparent
-  );
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in hsl, var(--md-foreground) 40%, transparent);
 }
 .prose a:hover {
-  text-decoration-color: color-mix(
-    in hsl,
-    var(--md-foreground) 75%,
-    transparent
-  );
+  text-decoration-color: color-mix(in hsl, var(--md-foreground) 75%, transparent);
 }
 
-/* ===== Inline code ===== */
+/* Inline code */
 .prose :not(pre) > code {
   border: 1px solid var(--md-border);
   background: var(--md-surface);
-  border-radius: 0.5rem;
-  padding: 0.15rem 0.4rem;
+  border-radius: 0.55rem;
+  padding: 0.14rem 0.42rem;
   font-size: 0.92em;
   color: var(--md-foreground);
 }
 
-/* ===== Code blocks ===== */
+/* Code blocks */
 .prose pre {
   border: 1px solid var(--md-border);
   border-radius: var(--md-radius);
@@ -191,35 +175,27 @@ Soft Minimal Theme (Comfortable Light/Dark)
   background: var(--md-surface);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
 }
-
 .prose pre code {
   background: transparent !important;
   padding: 0 !important;
 }
-
 .prose pre::-webkit-scrollbar { height: 10px; }
 .prose pre::-webkit-scrollbar-thumb {
   background: color-mix(in hsl, var(--md-border) 70%, transparent);
   border-radius: 999px;
 }
 
-/* ===== Blockquote ===== */
+/* Blockquote */
 .prose blockquote {
   border-left: 3px solid var(--md-border);
   padding-left: 1rem;
   margin: 1.2em 0;
-  color: color-mix(
-    in hsl,
-    var(--md-foreground) 82%,
-    var(--md-muted-foreground)
-  );
+  color: color-mix(in hsl, var(--md-foreground) 84%, var(--md-muted-foreground));
 }
 .prose blockquote p::before,
-.prose blockquote p::after {
-  content: "";
-}
+.prose blockquote p::after { content: ""; }
 
-/* ===== Tables ===== */
+/* Tables */
 .prose table {
   width: 100%;
   display: block;
@@ -228,15 +204,16 @@ Soft Minimal Theme (Comfortable Light/Dark)
   border-spacing: 0;
   border: 1px solid var(--md-border);
   border-radius: var(--md-radius);
+  background: var(--md-background);
 }
 .prose thead th {
-  background: color-mix(in hsl, var(--md-muted) 85%, var(--md-background));
+  background: var(--md-surface-2);
   color: var(--md-foreground);
   font-weight: 600;
 }
 .prose th,
 .prose td {
-  padding: 0.65rem 0.8rem;
+  padding: 0.7rem 0.85rem;
   border-bottom: 1px solid var(--md-border);
   border-right: 1px solid var(--md-border);
   white-space: nowrap;
@@ -248,22 +225,16 @@ Soft Minimal Theme (Comfortable Light/Dark)
   background: color-mix(in hsl, var(--md-muted) 55%, transparent);
 }
 
-/* ===== Media & misc ===== */
+/* Media & misc */
 .prose img {
   border-radius: var(--md-radius);
   border: 1px solid var(--md-border);
 }
-
 .prose hr {
   border: 0;
   border-top: 1px solid var(--md-border);
   margin: 2rem 0;
 }
-
 .prose ul,
-.prose ol {
-  padding-left: 1.25rem;
-}
-.prose li {
-  margin: 0.35rem 0;
-}
+.prose ol { padding-left: 1.25rem; }
+.prose li { margin: 0.35rem 0; }
