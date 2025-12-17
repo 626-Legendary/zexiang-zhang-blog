@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { remark } from "remark";
 import remarkParse from "remark-parse";
 import { getNoteMarkdownBySlug } from "@/lib/notes-fs";
