@@ -41,7 +41,7 @@ export function ProfileCard() {
                     <MdEmail />
                 </Link>
 
-                <Link href={"#"} target="_blank">
+                <Link href={"/rss.xml"} target="_blank">
                     <FaRss />
                 </Link>
 

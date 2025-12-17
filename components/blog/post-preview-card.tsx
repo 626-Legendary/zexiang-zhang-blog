@@ -1,4 +1,5 @@
-"use client";
+import Link from "next/link";
+import Image from "next/image";
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,37 +11,73 @@ interface PostPreviewCardProps {
   excerpt: string;
   date: string;
   href: string;
+
+  // ✅ 新增：封面图 URL（例如 /covers/go/golang-banner.png）
+  // 不传则自动用 /covers/default.png
+  cover?: string;
+
+  // ✅ 可选：以后你接数据库时再传真实值
+  views?: number;
+  comments?: number;
 }
 
-export function PostPreviewCard({ title, excerpt, date, href }: PostPreviewCardProps) {
+export function PostPreviewCard({
+  title,
+  excerpt,
+  date,
+  href,
+  cover,
+  views = 0,
+  comments = 0,
+}: PostPreviewCardProps) {
+  const img = cover?.trim().length ? cover : "/covers/default.png";
+
   return (
-    <Card className="flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300 w-full md:w-80">
-      {/* 缩略图 */}
-      <div className="relative w-full aspect-video bg-gray-600">
-        <span className="absolute inset-0 flex items-center justify-center text-white font-bold">
-          模拟图片
-        </span>
-      </div>
+    <Card className="group overflow-hidden rounded-2xl border bg-background transition hover:shadow-md">
+      {/* ✅ 整卡可点击 */}
+      <Link href={href} className="block">
+        {/* 封面 */}
+        <div className="relative w-full aspect-video">
+          <Image
+            src={img}
+            alt={title}
+            fill
+            className="object-cover transition duration-300 group-hover:scale-[1.02]"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            priority={false}
+          />
+          {/* 顶部渐变，确保标题/日期区域更干净 */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-black/25 to-transparent" />
+        </div>
 
-      {/* 内容 */}
-      <div className="p-4 flex flex-col flex-1">
-        <span className="text-sm text-muted-foreground">{date}</span>
-        <h2 className="text-lg font-semibold mt-1 line-clamp-2">{title}</h2>
-        <p className="text-sm text-muted-foreground mt-1 line-clamp-3 flex-1">{excerpt}</p>
+        {/* 内容 */}
+        <div className="p-4 flex flex-col">
+          <div className="text-xs text-muted-foreground">{date}</div>
 
-        {/* 底部操作栏 */}
-        <div className="flex items-center justify-between mt-12">
-          <Button size="sm" variant="outline">
-            立即阅读
-          </Button>
+          <h3 className="mt-1 text-base font-semibold leading-snug line-clamp-2">
+            {title}
+          </h3>
 
-          <div className="flex items-center gap-3 text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <FaEye /> <span className="text-sm">123</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <CgComment /> <span className="text-sm">5</span>
-            </div>
+          <p className="mt-2 text-sm text-muted-foreground line-clamp-3">
+            {excerpt}
+          </p>
+        </div>
+      </Link>
+
+      {/* 底部操作栏（不包在 Link 里，避免嵌套点击冲突） */}
+      <div className="px-4 pb-4 flex items-center justify-between">
+        <Button asChild size="sm" variant="outline" className="rounded-xl">
+          <Link href={href}>立即阅读</Link>
+        </Button>
+
+        <div className="flex items-center gap-3 text-muted-foreground">
+          <div className="flex items-center gap-1 text-xs">
+            <FaEye className="opacity-80" />
+            <span>{views}</span>
+          </div>
+          <div className="flex items-center gap-1 text-xs">
+            <CgComment className="opacity-80" />
+            <span>{comments}</span>
           </div>
         </div>
       </div>
