@@ -12,7 +12,7 @@ export function ProfileCard() {
         <Card className="w-full h-fit p-2 ">
 
             <Image
-                src="/avatar.jpg"
+                src="/Avatar.jpg"
                 alt="avatar"
                 width={100}
                 height={100}
@@ -37,7 +37,7 @@ export function ProfileCard() {
                     <FaGithub />
                 </Link>
 
-                <Link href={"zhangzexiang626@gmail.com"} target="_blank">
+                <Link href="mailto:zhangzexiang626@gmail.com">
                     <MdEmail />
                 </Link>
 
@@ -45,9 +45,9 @@ export function ProfileCard() {
                     <FaRss />
                 </Link>
 
-                
-                
-                
+
+
+
             </div>
         </Card>
     )
