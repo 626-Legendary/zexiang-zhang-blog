@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { FaGithub, FaSearch, FaBars } from "react-icons/fa";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 type NavItem = {
   name: string;
@@ -23,35 +22,31 @@ const navItems: NavItem[] = [
 
 export function HeaderSection() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
+  // ✅ 避免 Next 16 prerender 阶段读取 usePathname（会触发 uncached）
+  const [pathname, setPathname] = useState<string>("");
+
+  useEffect(() => {
+    // 客户端挂载后再读真实路径
+    setPathname(window.location.pathname || "/");
+  }, []);
+
+  const isActive = useMemo(() => {
+    return (href: string) => {
+      if (!pathname) return false; // SSR 阶段不高亮，hydration 后恢复
+      if (href === "/") return pathname === "/";
+      return pathname.startsWith(href);
+    };
+  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center px-4">
         {/* Left: Logo */}
         <Link href="/" className="w-1/3 flex items-center gap-2">
-          <Image
-            src="/LogoLight.png"
-            alt="Logo"
-            width={36}
-            height={32}
-            className="dark:hidden"
-          />
-          <Image
-            src="/LogoDark.png"
-            alt="Logo"
-            width={36}
-            height={32}
-            className="hidden dark:block"
-          />
-          <span className={`${ZMX.className} text-xl font-bold`}>
-            半栈人生
-          </span>
+          <Image src="/LogoLight.png" alt="Logo" width={36} height={32} className="dark:hidden" />
+          <Image src="/LogoDark.png" alt="Logo" width={36} height={32} className="hidden dark:block" />
+          <span className={`${ZMX.className} text-xl font-bold`}>半栈人生</span>
         </Link>
 
         {/* Center: Nav (desktop) */}
@@ -63,9 +58,10 @@ export function HeaderSection() {
                   href={item.href}
                   className={`
                     transition underline-offset-4
-                    ${isActive(item.href)
-                      ? "text-foreground underline"
-                      : "text-muted-foreground hover:text-foreground hover:underline"
+                    ${
+                      isActive(item.href)
+                        ? "text-foreground underline"
+                        : "text-muted-foreground hover:text-foreground hover:underline"
                     }
                   `}
                 >
@@ -101,7 +97,7 @@ export function HeaderSection() {
 
           <button
             className="md:hidden text-xl"
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >
             <FaBars />
@@ -120,10 +116,7 @@ export function HeaderSection() {
                   onClick={() => setOpen(false)}
                   className={`
                     block text-sm transition
-                    ${isActive(item.href)
-                      ? "font-medium text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                    }
+                    ${isActive(item.href) ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"}
                   `}
                 >
                   {item.name}

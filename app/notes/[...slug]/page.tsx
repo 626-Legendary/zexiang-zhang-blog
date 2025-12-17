@@ -1,5 +1,5 @@
 // app/notes/[...slug]/page.tsx
-export const dynamic = "force-dynamic";
+
 
 import { Suspense } from "react";
 import { getNoteMarkdownBySlug } from "@/lib/notes-fs";
