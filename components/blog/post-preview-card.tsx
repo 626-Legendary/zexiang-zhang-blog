@@ -70,9 +70,9 @@ export function PostPreviewCard({
             <Link
               key={tag}
               href={`/tags/${encodeURIComponent(tag)}`}
-              className="rounded-md border p-0.5 text-xs text-muted-foreground transition hover:bg-muted"
+              className="rounded-md border px-2 py-1 text-xs text-muted-foreground transition hover:bg-muted"
             >
-              #{tag}
+              # {tag}
             </Link>
           ))}
         </div>

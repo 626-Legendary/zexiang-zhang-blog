@@ -21,7 +21,7 @@ export function TagCard() {
             href={`/tags/${encodeURIComponent(tag)}`}
             className="rounded-md border px-2 py-1 text-sm hover:bg-muted transition"
           >
-            #{tag}
+            # {tag}
             <span className="ml-1 text-xs text-muted-foreground">({count})</span>
           </Link>
         ))}
