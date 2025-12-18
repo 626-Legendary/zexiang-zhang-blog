@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Suspense } from "react";
 import { buildNotesTree } from "@/lib/notes-tree";
 import { NotesSidebar } from "@/components/notes/notes-sidebar";
-
+import { ZMX } from "../fonts";
 function SidebarFallback() {
   return (
     <div className="rounded-xl border bg-card/50">
@@ -42,10 +42,13 @@ function TocFallback() {
 
 export default function NotesLayout({ children, toc }: { children: ReactNode; toc: ReactNode }) {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6">
+    <div className="mx-auto max-w-7xl px-4 py-6">
       <header className="mb-5">
-        <h1 className="text-3xl font-semibold tracking-tight">Notes</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Browse, read, and jump sections.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">笔记</h1>
+        <div className={ZMX.className}>
+          <p className="mt-1 text-xl text-muted-foreground">随记其要</p>
+        </div>
+
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[280px_1fr_240px]">

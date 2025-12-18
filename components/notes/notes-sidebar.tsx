@@ -178,7 +178,7 @@ export function NotesSidebar({ tree }: { tree: TreeNode[] }) {
   return (
     <div className="rounded-xl border bg-card/50">
       <div className="px-3 py-2.5 text-xs font-medium tracking-wide text-muted-foreground">
-        FILES
+        所有文档
       </div>
 
       <div className="border-t" />

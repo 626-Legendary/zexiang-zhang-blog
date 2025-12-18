@@ -17,7 +17,7 @@ export function FooterSection() {
           className="inline-flex items-center gap-2 hover:text-primary transition-colors"
         >
           <CiCoffeeCup className="inline" />
-          如果内容对您有启发，请我喝一杯热咖啡支持我的创作。
+          请我喝一杯热咖啡支持我的创作。
         </Link>
       </div>
 
@@ -28,16 +28,16 @@ export function FooterSection() {
 
       {/* 版权所有 */}
       <div className="text-muted-foreground text-sm">
-        © <Suspense fallback={<span>Loading...</span>}><FooterYear /></Suspense> 半栈人生. All Rights Reserved.
+        ©2025 - <Suspense fallback={<span>Loading...</span>}><FooterYear /></Suspense> 半栈人生. All Rights Reserved.
       </div>
 
       {/* 许可协议 */}
-      <div className="text-muted-foreground text-sm">
+      <div className="text-muted-foreground text-xs">
         除非另有说明，本站所有文章均采用{" "}
         <Link
           href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"
           target="_blank"
-          className="underline hover:text-accent transition-colors"
+          className="underline hover:text-accent transition-colors font-bold"
         >
           CC BY-NC-SA 4.0 许可协议
         </Link>{" "}

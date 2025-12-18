@@ -2,6 +2,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { toggleLikeAction } from "@/app/actions/engagement";
 import { CommentThread } from "@/components/comment-thread";
+import { ZMX } from "../fonts";
 
 type Life = {
   id: string;
@@ -141,13 +142,13 @@ export default async function LifePage() {
 
   const { data: commentsRaw } = ids.length
     ? await supabase
-        .from("comments")
-        .select("id, feed_id, parent_id, nickname, body, created_at")
-        .eq("feed_kind", "life")
-        .eq("is_approved", true)
-        .in("feed_id", ids)
-        .order("created_at", { ascending: true })
-        .limit(600)
+      .from("comments")
+      .select("id, feed_id, parent_id, nickname, body, created_at")
+      .eq("feed_kind", "life")
+      .eq("is_approved", true)
+      .in("feed_id", ids)
+      .order("created_at", { ascending: true })
+      .limit(600)
     : { data: [] as any };
 
   const commentsByFeed = new Map<string, CommentRow[]>();
@@ -160,8 +161,12 @@ export default async function LifePage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-10">
       <header className="mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight">Life</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Life updates, newest first.</p>
+        <h1 className="text-2xl font-semibold tracking-tight">生活</h1>
+        <div className={ZMX.className}>
+          
+          <p className="mt-1 text-xl text-muted-foreground">人间至味是清欢</p>
+        </div>
+
       </header>
 
       <section className="divide-y rounded-lg border bg-card">

@@ -10,7 +10,8 @@ export function AnnouncementCard() {
                 &nbsp;公告
             </div>
             <div className="mt-2">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore, fugit.</p>
+                <p className="text-sm">这是一个用来记录与整理的地方。
+                    笔记、经验，以及尚未想清楚的东西。</p>
             </div>
 
 

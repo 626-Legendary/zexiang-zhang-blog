@@ -1,7 +1,7 @@
 // app/loading.tsx
 export default function Loading() {
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background">
+    <div className="relative grid min-h-screen place-items-center overflow-hidden bg-background">
       {/* subtle grid */}
       <div
         aria-hidden
@@ -19,11 +19,12 @@ export default function Loading() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 60% at 50% 40%, rgb(0 0 0 / 0.06) 0%, transparent 55%), radial-gradient(80% 80% at 50% 60%, rgb(0 0 0 / 0.08) 0%, transparent 60%)",
+            "radial-gradient(60% 60% at 50% 45%, rgb(0 0 0 / 0.06) 0%, transparent 55%), radial-gradient(80% 80% at 50% 60%, rgb(0 0 0 / 0.08) 0%, transparent 60%)",
         }}
       />
 
-      <div className="relative flex flex-col items-center gap-4">
+      {/* ===== Center content ===== */}
+      <div className="relative flex flex-col items-center text-center gap-5 translate-y-[-4%] max-w-xs">
         {/* mark */}
         <div className="relative">
           {/* outer ring */}
@@ -35,21 +36,9 @@ export default function Loading() {
         </div>
 
         <div className="flex flex-col items-center gap-2">
-          <div className="text-sm font-medium tracking-tight text-foreground/80">
-            Loading
-            <span className="inline-flex w-8 justify-start">
-              <span className="animate-[pulse_1.2s_ease-in-out_infinite]">.</span>
-              <span className="animate-[pulse_1.2s_ease-in-out_infinite] [animation-delay:200ms]">
-                .
-              </span>
-              <span className="animate-[pulse_1.2s_ease-in-out_infinite] [animation-delay:400ms]">
-                .
-              </span>
-            </span>
-          </div>
 
           {/* thin progress shimmer */}
-          <div className="h-[2px] w-44 overflow-hidden rounded-full bg-foreground/10">
+          <div className="h-[2px] w-40 overflow-hidden rounded-full bg-foreground/10">
             <div className="h-full w-1/2 animate-[shimmer_1.1s_ease-in-out_infinite] bg-foreground/55" />
           </div>
 
@@ -59,7 +48,7 @@ export default function Loading() {
         </div>
       </div>
 
-      {/* local keyframes (works without tailwind config) */}
+      {/* local keyframes */}
       <style>{`
         @keyframes shimmer {
           0% { transform: translateX(-120%); }

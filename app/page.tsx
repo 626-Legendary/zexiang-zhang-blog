@@ -38,7 +38,7 @@ export default function Home() {
               href="/notes"
               className="text-sm text-muted-foreground hover:text-foreground transition"
             >
-              View all →
+              阅读全部 →
             </Link>
           </div>
 
@@ -57,22 +57,11 @@ export default function Home() {
                     date={formatDate(p.date)}
                     href={`/notes/${p.slug}`}
                     cover={p.cover}   // ✅ 关键
+                    tags={p.tags}
                   />
 
-                  {/* ✅ tags 展示（如果你不想改 PostPreviewCard，就放在外面） */}
-                  {p.tags?.length ? (
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {p.tags.slice(0, 6).map((t) => (
-                        <Link
-                          key={`${p.slug}:${t}`}
-                          href={`/tags/${encodeURIComponent(t)}`}
-                          className="rounded-md border px-2 py-0.5 text-xs text-muted-foreground hover:bg-muted transition"
-                        >
-                          #{t}
-                        </Link>
-                      ))}
-                    </div>
-                  ) : null}
+                  
+                 
                 </div>
               ))}
             </div>
@@ -84,9 +73,9 @@ export default function Home() {
           <div className="rounded-2xl border bg-background/50 p-6">
             <div className="text-base font-medium">Extra Section</div>
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              This space can be used for recommendations, announcements, or other homepage content.
+              正在努力开发中...
               <br />
-              数据库连接 = 完成相关路由建设 &gt; 学习笔记功能
+              
             </p>
           </div>
         </section>
