@@ -1,4 +1,5 @@
 // components/markdown.tsx
+import remarkFrontmatter from "remark-frontmatter";
 import { remark } from "remark";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
@@ -170,6 +171,7 @@ const ARTICLE_CLASSNAME = [
 export async function Markdown({ content }: { content: string }) {
   const file = await remark()
     .use(remarkParse)
+    .use(remarkFrontmatter, ["yaml"])
     .use(remarkGfm)
     .use(remarkHeadingIds)
     .use(remarkRehype, { allowDangerousHtml: false })

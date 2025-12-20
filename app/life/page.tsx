@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { toggleLikeAction } from "@/app/actions/engagement";
 import { CommentThread } from "@/components/comment-thread";
 import { ZMX } from "../fonts";
+import remarkFrontmatter from "remark-frontmatter";
 
 type Life = {
   id: string;
