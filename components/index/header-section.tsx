@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { FaGithub, FaSearch, FaBars } from "react-icons/fa";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 type NavItem = {
   name: string;
@@ -21,41 +22,45 @@ const navItems: NavItem[] = [
 ];
 
 export function HeaderSection() {
+  const pathname = usePathname(); // ✅ 响应式路由
   const [open, setOpen] = useState(false);
 
-  // ✅ 避免 Next 16 prerender 阶段读取 usePathname（会触发 uncached）
-  const [pathname, setPathname] = useState<string>("");
-
-  useEffect(() => {
-    // 客户端挂载后再读真实路径
-    setPathname(window.location.pathname || "/");
-  }, []);
-
-  const isActive = useMemo(() => {
-    return (href: string) => {
-      if (!pathname) return false; // SSR 阶段不高亮，hydration 后恢复
-      if (href === "/") return pathname === "/";
-      return pathname.startsWith(href);
-    };
-  }, [pathname]);
+  const isActive = (href: string) => {
+    return pathname === href; // ✅ 单级高亮
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center px-4">
         {/* Left: Logo */}
-        <Link href="/" className="w-1/3 flex items-center gap-2">
-          <Image src="/LogoLight.png" alt="Logo" width={36} height={32} className="dark:hidden" />
-          <Image src="/LogoDark.png" alt="Logo" width={36} height={32} className="hidden dark:block" />
-          <span className={`${ZMX.className} text-xl font-bold`}>半栈人生</span>
+        <Link href="/" className="flex w-1/3 items-center gap-2">
+          <Image
+            src="/LogoLight.png"
+            alt="Logo"
+            width={36}
+            height={32}
+            className="dark:hidden"
+          />
+          <Image
+            src="/LogoDark.png"
+            alt="Logo"
+            width={36}
+            height={32}
+            className="hidden dark:block"
+          />
+          <span className={`${ZMX.className} text-xl font-bold`}>
+            半栈人生
+          </span>
         </Link>
 
         {/* Center: Nav (desktop) */}
-        <nav className="hidden md:flex w-1/3 justify-center">
+        <nav className="hidden w-1/3 justify-center md:flex">
           <ul className="flex items-center gap-8 text-sm font-medium">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={`
                     transition underline-offset-4
                     ${
@@ -73,7 +78,7 @@ export function HeaderSection() {
         </nav>
 
         {/* Right: Actions */}
-        <div className="flex w-1/3 justify-end items-center gap-4">
+        <div className="flex w-1/3 items-center justify-end gap-4">
           <div className="relative hidden md:block">
             <FaSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -96,7 +101,7 @@ export function HeaderSection() {
           <ThemeSwitcher />
 
           <button
-            className="md:hidden text-xl"
+            className="text-xl md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -107,7 +112,7 @@ export function HeaderSection() {
 
       {/* Mobile Nav */}
       {open && (
-        <div className="md:hidden border-t bg-background">
+        <div className="border-t bg-background md:hidden">
           <ul className="flex flex-col gap-4 px-4 py-4">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -116,7 +121,11 @@ export function HeaderSection() {
                   onClick={() => setOpen(false)}
                   className={`
                     block text-sm transition
-                    ${isActive(item.href) ? "font-medium text-foreground" : "text-muted-foreground hover:text-foreground"}
+                    ${
+                      isActive(item.href)
+                        ? "font-medium text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }
                   `}
                 >
                   {item.name}
