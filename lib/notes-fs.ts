@@ -136,6 +136,5 @@ export async function getAllNotesSlugs(): Promise<string[]> {
   }
 
   await walkDir(NOTES_DIR);
-  console.log("getAllNotesSlugs final result:", slugs);
   return slugs;
 }

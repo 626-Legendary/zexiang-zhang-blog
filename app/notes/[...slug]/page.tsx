@@ -16,9 +16,13 @@ async function NoteContent({ slug }: { slug: string[] }) {
   return <Markdown content={content} />;
 }
 
-export default function NotePage({ params }: { params: { slug: string[] } }) {
+export default function NotePage({ 
+  params 
+}: { 
+  params: { slug: string[] } 
+}) {
   // 处理 slug 可能是 undefined 的情况
-  if (!params || !params.slug || !Array.isArray(params.slug) || params.slug.length === 0) {
+  if (!params?.slug || !Array.isArray(params.slug) || params.slug.length === 0) {
     notFound();
   }
 
