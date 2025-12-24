@@ -13,19 +13,32 @@ const NOTES_DIR = path.join(process.cwd(), "content", "notes");
 
 /**
  * 把用户传入的 slugParts 规范化为安全、稳定、可缓存命中的 slugKey
+ * - 处理可能的 URL 编码（某些环境下 params 可能仍是编码形式）
  * - 统一分隔符为 "/"（Windows 也一致）
  * - 去掉空段、"."、".."、以及包含 ".." 的段
  * - 禁止绝对路径、盘符等（防穿越）
- * 
- * 注意：Next.js 已经自动解码了 URL 参数，所以这里接收的 slugParts 已经是解码后的值
  */
 function normalizeSlugParts(slugParts: string[]): string {
   if (!Array.isArray(slugParts)) {
     throw new Error("Invalid slugParts: expected array");
   }
   
-  // Next.js 已经解码，这里只需要清理和验证
-  const cleaned = slugParts
+  // 对每个部分进行处理：如果是 URL 编码形式则解码，否则直接使用
+  const decoded = slugParts.map((p) => {
+    // 检查是否看起来像 URL 编码（包含 %）
+    if (p.includes("%")) {
+      try {
+        return decodeURIComponent(p);
+      } catch {
+        // 解码失败则使用原值
+        return p;
+      }
+    }
+    return p;
+  });
+
+  // 清理和验证
+  const cleaned = decoded
     .map((p) => p.replace(/\\/g, "/").trim())
     .filter((p) => p.length > 0)
     .filter((p) => p !== "." && p !== ".." && !p.includes(".."))

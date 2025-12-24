@@ -14,15 +14,18 @@ export async function generateStaticParams() {
 export default async function TocPage({
   params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }) {
+  // 在 Next.js 16 中，params 是 Promise，需要 await 解包
+  const { slug } = await params;
+  
   // 处理 slug 可能是 undefined 的情况
-  if (!params?.slug || !Array.isArray(params.slug) || params.slug.length === 0) {
+  if (!slug || !Array.isArray(slug) || slug.length === 0) {
     return null;
   }
 
   try {
-    const { content } = await getNoteMarkdownBySlug(params.slug);
+    const { content } = await getNoteMarkdownBySlug(slug);
     const tree = remark().use(remarkParse).parse(content);
     const { toc, showToc } = buildTocFromMdast(tree);
 
@@ -30,7 +33,7 @@ export default async function TocPage({
     return <TocScrollSpy toc={toc} />;
   } catch (error) {
     // 如果读取失败，返回 null（不显示 TOC）
-    console.error("Error reading TOC for slug:", params.slug, error);
+    console.error("Error reading TOC for slug:", slug, error);
     return null;
   }
 }
