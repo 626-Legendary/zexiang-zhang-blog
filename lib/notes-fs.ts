@@ -19,6 +19,10 @@ const NOTES_DIR = path.join(process.cwd(), "content", "notes");
  * - 禁止绝对路径、盘符等（防穿越）
  */
 function normalizeSlugParts(slugParts: string[]): string {
+  if (!Array.isArray(slugParts)) {
+    throw new Error("Invalid slugParts: expected array");
+  }
+  
   const decoded = slugParts.map((p) => {
     // decode 出错时不崩，直接用原字符串
     try {
@@ -101,4 +105,37 @@ export async function getNoteMarkdownBySlug(slugParts: string[]) {
   }
 
   return readNoteByKey(slugKey);
+}
+
+/**
+ * 获取所有笔记的 slugKey 列表，用于生成静态参数
+ */
+export async function getAllNotesSlugs(): Promise<string[]> {
+  const slugs: string[] = [];
+
+  async function walkDir(dir: string, prefix: string = "") {
+    try {
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
+
+        if (entry.isDirectory()) {
+          await walkDir(fullPath, slug);
+        } else if (entry.isFile() && entry.name.endsWith(".md")) {
+          // 移除 .md 后缀
+          const slugKey = slug.replace(/\.md$/, "");
+          slugs.push(slugKey);
+        }
+      }
+    } catch (err) {
+      // 目录读取失败则跳过
+      console.error("Error reading directory:", dir, err);
+    }
+  }
+
+  await walkDir(NOTES_DIR);
+  console.log("getAllNotesSlugs final result:", slugs);
+  return slugs;
 }

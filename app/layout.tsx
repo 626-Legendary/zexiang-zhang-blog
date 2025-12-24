@@ -43,10 +43,14 @@ export default function RootLayout({
           disableTransitionOnChange
         >
 
-          <HeaderSection />
+          <Suspense fallback={null}>
+            <HeaderSection />
+          </Suspense>
 
           {children}
-          <FooterSection />
+          <Suspense fallback={<footer className="border-t border-border py-8 px-4" />}>
+            <FooterSection />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>
