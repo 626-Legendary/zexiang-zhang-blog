@@ -2,12 +2,7 @@
 import { getNoteMarkdownBySlug } from "@/lib/notes-fs";
 import { Markdown } from "@/components/markdown";
 
-export default async function NotePage({
-  params,
-}: {
-  params: { slug: string[] };
-}) {
-  // 服务端直接获取数据
+export default async function NotePage({ params }: { params: { slug: string[] } }) {
   const { content } = await getNoteMarkdownBySlug(params.slug);
 
   return (
