@@ -60,7 +60,7 @@ export function TocScrollSpy({ toc }: { toc: TocItem[] }) {
 
   return (
     <div className="rounded-xl border bg-card/50 p-3">
-      <div className="mb-2 text-xs font-medium text-muted-foreground">ON THIS PAGE</div>
+      <div className="mb-2 text-xs font-medium text-muted-foreground">文档目录</div>
 
       <nav className="space-y-1 text-sm">
         {toc.map((item) => {

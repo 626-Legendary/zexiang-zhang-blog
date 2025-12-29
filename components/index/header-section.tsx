@@ -22,23 +22,23 @@ const navItems: NavItem[] = [
 ];
 
 export function HeaderSection() {
-  const pathname = usePathname(); // ✅ 响应式路由
+  const pathname = usePathname(); // 响应式路由
   const [open, setOpen] = useState(false);
 
   const isActive = (href: string) => {
-    return pathname === href; // ✅ 单级高亮
+    return pathname === href; // 单级高亮
   };
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center px-4">
         {/* Left: Logo */}
-        <Link href="/" className="flex w-1/3 items-center gap-2">
+        <Link href="/" className="flex w-1/2 md:w-1/3 items-center gap-2">
           <Image
             src="/LogoLight.png"
             alt="Logo"
-            width={36}
-            height={32}
+            width={54}
+            height={48}
             className="dark:hidden"
           />
           <Image
@@ -48,7 +48,7 @@ export function HeaderSection() {
             height={32}
             className="hidden dark:block"
           />
-          <span className={`${ZMX.className} text-xl font-bold`}>
+          <span className={`${ZMX.className} text-xl md:text-2xl font-bold`}>
             半栈人生
           </span>
         </Link>
@@ -63,10 +63,9 @@ export function HeaderSection() {
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={`
                     transition underline-offset-4
-                    ${
-                      isActive(item.href)
-                        ? "text-foreground underline"
-                        : "text-muted-foreground hover:text-foreground hover:underline"
+                    ${isActive(item.href)
+                      ? "text-foreground underline"
+                      : "text-muted-foreground hover:text-foreground hover:underline"
                     }
                   `}
                 >
@@ -78,7 +77,7 @@ export function HeaderSection() {
         </nav>
 
         {/* Right: Actions */}
-        <div className="flex w-1/3 items-center justify-end gap-4">
+        <div className="flex w-2/3 md:w-1/3 items-center justify-end gap-4">
           <div className="relative hidden md:block">
             <FaSearch className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -120,11 +119,10 @@ export function HeaderSection() {
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className={`
-                    block text-sm transition
-                    ${
-                      isActive(item.href)
-                        ? "font-medium text-foreground"
-                        : "text-muted-foreground hover:text-foreground"
+                    block text-sm transition px-2
+                    ${isActive(item.href)
+                      ? "font-medium text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
                     }
                   `}
                 >
